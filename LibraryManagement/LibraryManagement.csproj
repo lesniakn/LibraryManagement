@@ -56,6 +56,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -158,6 +160,60 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Aktor.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Autor.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Czasopismo.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Czytelnik.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Film.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ksiazka.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LibraryManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LibraryManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LibraryManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Praca_Naukowa.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Slowo_Kluczowe.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wiadomosci.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wydawca.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wypozyczenia_Czasopisma.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wypozyczenia_Filmu.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wypozyczenia_Ksiazki.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,10 +225,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\LibraryManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LibraryManagementModel.edmx</DependentUpon>
+      <LastGenOutput>LibraryManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\LibraryManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LibraryManagementModel.edmx</DependentUpon>
+      <LastGenOutput>LibraryManagementModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\LibraryManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibraryManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LibraryManagementModel.edmx.diagram">
+      <DependentUpon>LibraryManagementModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -202,7 +275,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -216,6 +288,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
