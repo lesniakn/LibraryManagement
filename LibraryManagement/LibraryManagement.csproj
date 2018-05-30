@@ -169,6 +169,7 @@
     <Compile Include="Controllers\WydawcaController.cs" />
     <Compile Include="Controllers\Wypozyczenia_CzasopismaController.cs" />
     <Compile Include="Controllers\Wypozyczenia_FilmuController.cs" />
+    <Compile Include="Controllers\Wypozyczenia_KsiazkiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -344,6 +345,11 @@
     <Content Include="Views\Wypozyczenia_Filmu\Details.cshtml" />
     <Content Include="Views\Wypozyczenia_Filmu\Edit.cshtml" />
     <Content Include="Views\Wypozyczenia_Filmu\Index.cshtml" />
+    <Content Include="Views\Wypozyczenia_Ksiazki\Create.cshtml" />
+    <Content Include="Views\Wypozyczenia_Ksiazki\Delete.cshtml" />
+    <Content Include="Views\Wypozyczenia_Ksiazki\Details.cshtml" />
+    <Content Include="Views\Wypozyczenia_Ksiazki\Edit.cshtml" />
+    <Content Include="Views\Wypozyczenia_Ksiazki\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
