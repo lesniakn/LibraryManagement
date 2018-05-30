@@ -163,6 +163,7 @@
     <Compile Include="Controllers\FilmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KsiazkaController.cs" />
+    <Compile Include="Controllers\Praca_NaukowaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -308,6 +309,11 @@
     <Content Include="Views\Ksiazka\Details.cshtml" />
     <Content Include="Views\Ksiazka\Edit.cshtml" />
     <Content Include="Views\Ksiazka\Index.cshtml" />
+    <Content Include="Views\Praca_Naukowa\Create.cshtml" />
+    <Content Include="Views\Praca_Naukowa\Delete.cshtml" />
+    <Content Include="Views\Praca_Naukowa\Details.cshtml" />
+    <Content Include="Views\Praca_Naukowa\Edit.cshtml" />
+    <Content Include="Views\Praca_Naukowa\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
