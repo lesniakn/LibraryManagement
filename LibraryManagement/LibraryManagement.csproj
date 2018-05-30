@@ -159,6 +159,7 @@
     <Compile Include="Controllers\AktorController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\CzasopismoController.cs" />
+    <Compile Include="Controllers\CzytelnikController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,6 +291,11 @@
     <Content Include="Views\Czasopismo\Details.cshtml" />
     <Content Include="Views\Czasopismo\Edit.cshtml" />
     <Content Include="Views\Czasopismo\Index.cshtml" />
+    <Content Include="Views\Czytelnik\Create.cshtml" />
+    <Content Include="Views\Czytelnik\Delete.cshtml" />
+    <Content Include="Views\Czytelnik\Details.cshtml" />
+    <Content Include="Views\Czytelnik\Edit.cshtml" />
+    <Content Include="Views\Czytelnik\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
