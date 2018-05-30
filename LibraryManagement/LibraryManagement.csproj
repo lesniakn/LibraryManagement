@@ -166,6 +166,7 @@
     <Compile Include="Controllers\Praca_NaukowaController.cs" />
     <Compile Include="Controllers\Slowo_KluczoweController.cs" />
     <Compile Include="Controllers\WiadomosciController.cs" />
+    <Compile Include="Controllers\WydawcaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -326,6 +327,11 @@
     <Content Include="Views\Wiadomosci\Details.cshtml" />
     <Content Include="Views\Wiadomosci\Edit.cshtml" />
     <Content Include="Views\Wiadomosci\Index.cshtml" />
+    <Content Include="Views\Wydawca\Create.cshtml" />
+    <Content Include="Views\Wydawca\Delete.cshtml" />
+    <Content Include="Views\Wydawca\Details.cshtml" />
+    <Content Include="Views\Wydawca\Edit.cshtml" />
+    <Content Include="Views\Wydawca\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
