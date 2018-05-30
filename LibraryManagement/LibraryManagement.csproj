@@ -165,6 +165,7 @@
     <Compile Include="Controllers\KsiazkaController.cs" />
     <Compile Include="Controllers\Praca_NaukowaController.cs" />
     <Compile Include="Controllers\Slowo_KluczoweController.cs" />
+    <Compile Include="Controllers\WiadomosciController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -320,6 +321,11 @@
     <Content Include="Views\Slowo_Kluczowe\Details.cshtml" />
     <Content Include="Views\Slowo_Kluczowe\Edit.cshtml" />
     <Content Include="Views\Slowo_Kluczowe\Index.cshtml" />
+    <Content Include="Views\Wiadomosci\Create.cshtml" />
+    <Content Include="Views\Wiadomosci\Delete.cshtml" />
+    <Content Include="Views\Wiadomosci\Details.cshtml" />
+    <Content Include="Views\Wiadomosci\Edit.cshtml" />
+    <Content Include="Views\Wiadomosci\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
