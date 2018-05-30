@@ -158,6 +158,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AktorController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\CzasopismoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +285,11 @@
     <Content Include="Views\Autor\Details.cshtml" />
     <Content Include="Views\Autor\Edit.cshtml" />
     <Content Include="Views\Autor\Index.cshtml" />
+    <Content Include="Views\Czasopismo\Create.cshtml" />
+    <Content Include="Views\Czasopismo\Delete.cshtml" />
+    <Content Include="Views\Czasopismo\Details.cshtml" />
+    <Content Include="Views\Czasopismo\Edit.cshtml" />
+    <Content Include="Views\Czasopismo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
