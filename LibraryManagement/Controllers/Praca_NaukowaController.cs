@@ -15,6 +15,8 @@ namespace LibraryManagement.Controllers
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Praca_Naukowa
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var praca_Naukowa = db.Praca_Naukowa.Include(p => p.Autor);
@@ -22,6 +24,8 @@ namespace LibraryManagement.Controllers
         }
 
         // GET: Praca_Naukowa/Details/5
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

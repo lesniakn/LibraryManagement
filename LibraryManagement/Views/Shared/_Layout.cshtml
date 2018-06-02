@@ -24,6 +24,14 @@
                     <li>@Html.ActionLink("Czasopisma", "Index", "Czasopismo")</li>
                     <li>@Html.ActionLink("Prace Naukowe", "Index", "Praca_Naukowa")</li>
                     <li>@Html.ActionLink("Filmy", "Index", "Film")</li>
+                    @{
+                        string loggedin = HttpContext.Current.User.Identity.Name;
+                        if (!string.IsNullOrEmpty(loggedin))
+                            {
+                            <li> @Html.ActionLink("Zarządzaj", "Dashboard", "Konta") </li>
+                            }
+                       
+                     }
 
                 </ul>
             </div>

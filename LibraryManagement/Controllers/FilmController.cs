@@ -15,6 +15,8 @@ namespace LibraryManagement.Controllers
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Film
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var film = db.Film.Include(f => f.Aktor);
@@ -22,6 +24,8 @@ namespace LibraryManagement.Controllers
         }
 
         // GET: Film/Details/5
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

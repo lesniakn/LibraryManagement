@@ -15,6 +15,8 @@ namespace LibraryManagement.Controllers
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Ksiazka
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var ksiazka = db.Ksiazka.Include(k => k.Autor).Include(k => k.Slowo_Kluczowe).Include(k => k.Wydawca);
@@ -22,6 +24,8 @@ namespace LibraryManagement.Controllers
         }
 
         // GET: Ksiazka/Details/5
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

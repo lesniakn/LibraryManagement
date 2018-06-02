@@ -15,6 +15,8 @@ namespace LibraryManagement.Controllers
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Czasopismo
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var czasopismo = db.Czasopismo.Include(c => c.Autor).Include(c => c.Wydawca);
@@ -22,6 +24,8 @@ namespace LibraryManagement.Controllers
         }
 
         // GET: Czasopismo/Details/5
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

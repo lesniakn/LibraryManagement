@@ -15,12 +15,16 @@ namespace LibraryManagement.Controllers
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Autor
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Autor.ToList());
         }
 
         // GET: Autor/Details/5
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

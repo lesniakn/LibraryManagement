@@ -10,13 +10,23 @@ using LibraryManagement.Models;
 
 namespace LibraryManagement.Controllers
 {
+    [Authorize]
     public class CzytelnikController : Controller
     {
+        
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
 
         // GET: Czytelnik
+        [Authorize]
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            int id = 0;
+               if (Session["UserID"] != null)
+               {
+                    id = Int32.Parse(Session["UserID"].ToString());
+               }
+         //ViewBag.UserName = db.Czytelnik.Find(id).Uzytkownik.ToString();
             return View(db.Czytelnik.ToList());
         }
 
