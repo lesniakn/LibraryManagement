@@ -31,7 +31,8 @@ namespace LibraryManagement.Models
         public string Haslo { get; set; }
         public string Email { get; set; }
         public int Rola { get; set; }
-    
+        public bool Wazne { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wiadomosci> Wiadomosci { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
