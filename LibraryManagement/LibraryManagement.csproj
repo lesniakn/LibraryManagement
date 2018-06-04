@@ -219,6 +219,9 @@
     <Compile Include="Models\Praca_Naukowa.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Rola.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Slowo_Kluczowe.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f474e36310e042f39ae5e123a2dde28b" Name="Diagram1">
+      <Diagram DiagramId="f474e36310e042f39ae5e123a2dde28b" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="LibraryManagementDataModel.Aktor" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryManagementDataModel.Autor" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryManagementDataModel.Czasopismo" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
@@ -32,6 +32,8 @@
         <AssociationConnector Association="LibraryManagementDataModel.FK__Ksiazka__ID_Slow__3F466844" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryManagementDataModel.FK__Ksiazka__ID_Wyda__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryManagementDataModel.FK__Wypozycze__ID_Ks__46E78A0C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Rola" Width="1.5" PointX="3.75" PointY="1.5" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK_Czytelnik_ToRola" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
