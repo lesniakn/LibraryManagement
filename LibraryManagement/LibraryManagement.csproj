@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Wypozyczenia_CzasopismaController.cs" />
     <Compile Include="Controllers\Wypozyczenia_FilmuController.cs" />
     <Compile Include="Controllers\Wypozyczenia_KsiazkiController.cs" />
+    <Compile Include="Controllers\Wypozyczenia_Praca_NaukowaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -356,18 +357,12 @@
     <Content Include="Views\Wydawca\Details.cshtml" />
     <Content Include="Views\Wydawca\Edit.cshtml" />
     <Content Include="Views\Wydawca\Index.cshtml" />
-    <Content Include="Views\Wypozyczenia_Czasopisma\Create.cshtml" />
-    <Content Include="Views\Wypozyczenia_Czasopisma\Delete.cshtml" />
     <Content Include="Views\Wypozyczenia_Czasopisma\Details.cshtml" />
     <Content Include="Views\Wypozyczenia_Czasopisma\Edit.cshtml" />
     <Content Include="Views\Wypozyczenia_Czasopisma\Index.cshtml" />
-    <Content Include="Views\Wypozyczenia_Filmu\Create.cshtml" />
-    <Content Include="Views\Wypozyczenia_Filmu\Delete.cshtml" />
     <Content Include="Views\Wypozyczenia_Filmu\Details.cshtml" />
     <Content Include="Views\Wypozyczenia_Filmu\Edit.cshtml" />
     <Content Include="Views\Wypozyczenia_Filmu\Index.cshtml" />
-    <Content Include="Views\Wypozyczenia_Ksiazki\Create.cshtml" />
-    <Content Include="Views\Wypozyczenia_Ksiazki\Delete.cshtml" />
     <Content Include="Views\Wypozyczenia_Ksiazki\Details.cshtml" />
     <Content Include="Views\Wypozyczenia_Ksiazki\Edit.cshtml" />
     <Content Include="Views\Wypozyczenia_Ksiazki\Index.cshtml" />
@@ -375,6 +370,9 @@
     <Content Include="Views\Konta\Login.cshtml" />
     <Content Include="Views\Konta\Register.cshtml" />
     <Content Include="Views\Koszyk\Index.cshtml" />
+    <Content Include="Views\Wypozyczenia_Praca_Naukowa\Details.cshtml" />
+    <Content Include="Views\Wypozyczenia_Praca_Naukowa\Edit.cshtml" />
+    <Content Include="Views\Wypozyczenia_Praca_Naukowa\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

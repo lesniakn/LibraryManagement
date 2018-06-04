@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryManagement.Models.Wypozyczenia_Czasopisma>
+﻿@model IEnumerable<LibraryManagement.Models.Wypozyczenia_Praca_Naukowa>
 
 @{
     ViewBag.Title = "Index";
@@ -18,10 +18,13 @@
             @Html.DisplayNameFor(model => model.Data_Zwrotu)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Czasopismo.Tytul)
+            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+            @Html.DisplayNameFor(model => model.Praca_Naukowa.Tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stan1.Opis)
         </th>
         <th></th>
     </tr>
@@ -36,10 +39,10 @@
                 @Html.DisplayFor(modelItem => item.Data_Zwrotu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Czasopismo.Tytul)
+                @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+                @Html.DisplayFor(modelItem => item.Praca_Naukowa.Tytul)
             </td>
             @if (Session["UserID"] != null && Session["UserRole"] != null)
             {
@@ -47,10 +50,11 @@
                 {
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID })
                     </td>
                 }
             }
         </tr>
     }
 </table>
+

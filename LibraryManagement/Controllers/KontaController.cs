@@ -53,12 +53,12 @@ namespace LibraryManagement.Controllers
                     Session["UserID"] = currentuser.ID.ToString();
                     Session["UserRole"] = currentuser.Rola.ToString();
                     if (!string.IsNullOrEmpty(ReturnUrl))
-                        {
+                    {
                         return Redirect(ReturnUrl);
-                        }
+                    }
                     else
                     {
-                        return RedirectToAction("Index", "Ksiazka");
+                        return RedirectToAction("Index", "Ksiazki");
                     }
                 }
             }

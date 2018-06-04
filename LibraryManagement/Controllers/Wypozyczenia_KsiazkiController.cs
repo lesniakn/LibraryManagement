@@ -13,6 +13,7 @@ namespace LibraryManagement.Controllers
     public class Wypozyczenia_KsiazkiController : Controller
     {
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
+        private int stan = -1;
 
         // GET: Wypozyczenia_Ksiazki
         public ActionResult Index()
@@ -36,33 +37,6 @@ namespace LibraryManagement.Controllers
             return View(wypozyczenia_Ksiazki);
         }
 
-        // GET: Wypozyczenia_Ksiazki/Create
-        public ActionResult Create()
-        {
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie");
-            ViewBag.ID_Ksiazki = new SelectList(db.Ksiazka, "ID", "Tytul");
-            return View();
-        }
-
-        // POST: Wypozyczenia_Ksiazki/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ID_Czytelnika,ID_Ksiazki,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Ksiazki wypozyczenia_Ksiazki)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Wypozyczenia_Ksiazki.Add(wypozyczenia_Ksiazki);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Ksiazki.ID_Czytelnika);
-            ViewBag.ID_Ksiazki = new SelectList(db.Ksiazka, "ID", "Tytul", wypozyczenia_Ksiazki.ID_Ksiazki);
-            return View(wypozyczenia_Ksiazki);
-        }
-
         // GET: Wypozyczenia_Ksiazki/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -75,8 +49,9 @@ namespace LibraryManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Ksiazki.ID_Czytelnika);
-            ViewBag.ID_Ksiazki = new SelectList(db.Ksiazka, "ID", "Tytul", wypozyczenia_Ksiazki.ID_Ksiazki);
+            ViewBag.BStan = wypozyczenia_Ksiazki.Stan;
+            //stan = wypozyczenia_Ksiazki.Stan;
+            ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Ksiazki.Stan);
             return View(wypozyczenia_Ksiazki);
         }
 
@@ -85,43 +60,20 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Ksiazki,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Ksiazki wypozyczenia_Ksiazki)
+        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Ksiazki,Data_Wypozyczenia,Data_Zwrotu,Stan")] Wypozyczenia_Ksiazki wypozyczenia_Ksiazki, int bstan)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(wypozyczenia_Ksiazki).State = EntityState.Modified;
+                if (bstan != wypozyczenia_Ksiazki.Stan && wypozyczenia_Ksiazki.Stan == 3)
+                {
+                    db.Ksiazka.Find(wypozyczenia_Ksiazki.ID_Ksiazki).Stan_Magazynowy++;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Ksiazki.ID_Czytelnika);
-            ViewBag.ID_Ksiazki = new SelectList(db.Ksiazka, "ID", "Tytul", wypozyczenia_Ksiazki.ID_Ksiazki);
+            ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Ksiazki.Stan);
             return View(wypozyczenia_Ksiazki);
-        }
-
-        // GET: Wypozyczenia_Ksiazki/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Wypozyczenia_Ksiazki wypozyczenia_Ksiazki = db.Wypozyczenia_Ksiazki.Find(id);
-            if (wypozyczenia_Ksiazki == null)
-            {
-                return HttpNotFound();
-            }
-            return View(wypozyczenia_Ksiazki);
-        }
-
-        // POST: Wypozyczenia_Ksiazki/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Wypozyczenia_Ksiazki wypozyczenia_Ksiazki = db.Wypozyczenia_Ksiazki.Find(id);
-            db.Wypozyczenia_Ksiazki.Remove(wypozyczenia_Ksiazki);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

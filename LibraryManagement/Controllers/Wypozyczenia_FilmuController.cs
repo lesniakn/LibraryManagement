@@ -13,6 +13,8 @@ namespace LibraryManagement.Controllers
     public class Wypozyczenia_FilmuController : Controller
     {
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
+        private int stan = -1;
+
 
         // GET: Wypozyczenia_Filmu
         public ActionResult Index()
@@ -36,33 +38,6 @@ namespace LibraryManagement.Controllers
             return View(wypozyczenia_Filmu);
         }
 
-        // GET: Wypozyczenia_Filmu/Create
-        public ActionResult Create()
-        {
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie");
-            ViewBag.ID_Filmu = new SelectList(db.Film, "ID", "Tytul");
-            return View();
-        }
-
-        // POST: Wypozyczenia_Filmu/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ID_Czytelnika,ID_Filmu,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Filmu wypozyczenia_Filmu)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Wypozyczenia_Filmu.Add(wypozyczenia_Filmu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Filmu.ID_Czytelnika);
-            ViewBag.ID_Filmu = new SelectList(db.Film, "ID", "Tytul", wypozyczenia_Filmu.ID_Filmu);
-            return View(wypozyczenia_Filmu);
-        }
-
         // GET: Wypozyczenia_Filmu/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -75,8 +50,8 @@ namespace LibraryManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Filmu.ID_Czytelnika);
-            ViewBag.ID_Filmu = new SelectList(db.Film, "ID", "Tytul", wypozyczenia_Filmu.ID_Filmu);
+            stan = wypozyczenia_Filmu.Stan;
+            ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Filmu.Stan);
             return View(wypozyczenia_Filmu);
         }
 
@@ -85,43 +60,20 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Filmu,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Filmu wypozyczenia_Filmu)
+        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Filmu,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Filmu wypozyczenia_Filmu, int bstan)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(wypozyczenia_Filmu).State = EntityState.Modified;
+                if (bstan != wypozyczenia_Filmu.Stan && wypozyczenia_Filmu.Stan == 3)
+                {
+                    db.Film.Find(wypozyczenia_Filmu.ID_Filmu).Stan_Magazynowy++;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID_Czytelnika = new SelectList(db.Czytelnik, "ID", "Imie", wypozyczenia_Filmu.ID_Czytelnika);
-            ViewBag.ID_Filmu = new SelectList(db.Film, "ID", "Tytul", wypozyczenia_Filmu.ID_Filmu);
+            ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Filmu.Stan);
             return View(wypozyczenia_Filmu);
-        }
-
-        // GET: Wypozyczenia_Filmu/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Wypozyczenia_Filmu wypozyczenia_Filmu = db.Wypozyczenia_Filmu.Find(id);
-            if (wypozyczenia_Filmu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(wypozyczenia_Filmu);
-        }
-
-        // POST: Wypozyczenia_Filmu/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Wypozyczenia_Filmu wypozyczenia_Filmu = db.Wypozyczenia_Filmu.Find(id);
-            db.Wypozyczenia_Filmu.Remove(wypozyczenia_Filmu);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
