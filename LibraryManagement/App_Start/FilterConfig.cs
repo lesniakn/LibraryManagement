@@ -10,6 +10,10 @@ namespace LibraryManagement
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
 
+            HttpContext.Current.Application.Lock();
+            HttpContext.Current.Application["Limit"] = 10;
+            HttpContext.Current.Application.UnLock();
+
         }
     }
 }

@@ -31,6 +31,7 @@
           <Property Name="Strony" Type="int" />
           <Property Name="ID_Wydawcy" Type="int" />
           <Property Name="ID_Autora" Type="int" />
+          <Property Name="Stan_Magazynowy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Czytelnik">
           <Key>
@@ -52,6 +53,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tytul" Type="varchar" MaxLength="100" />
           <Property Name="ID_Aktora" Type="int" />
+          <Property Name="Stan_Magazynowy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Ksiazka">
           <Key>
@@ -65,6 +67,7 @@
           <Property Name="ID_Autora" Type="int" />
           <Property Name="ID_Aktora" Type="int" />
           <Property Name="ID_Slowo_Kluczowe" Type="int" />
+          <Property Name="Stan_Magazynowy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Praca_Naukowa">
           <Key>
@@ -73,6 +76,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tytul" Type="varchar" MaxLength="100" />
           <Property Name="ID_Autora" Type="int" />
+          <Property Name="Stan_Magazynowy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Rola">
           <Key>
@@ -88,6 +92,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Strona" Type="int" />
           <Property Name="Slowo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Stan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opis" Type="nchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Wiadomosci">
           <Key>
@@ -111,8 +122,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Czytelnika" Type="int" />
           <Property Name="ID_Czasopisma" Type="int" />
-          <Property Name="Data_Wypozyczenia" Type="datetime" />
-          <Property Name="Data_Zwrotu" Type="datetime" />
+          <Property Name="Data_Wypozyczenia" Type="datetime" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="datetime" Nullable="false" />
+          <Property Name="Stan" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Wypozyczenia_Filmu">
           <Key>
@@ -121,8 +133,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Czytelnika" Type="int" />
           <Property Name="ID_Filmu" Type="int" />
-          <Property Name="Data_Wypozyczenia" Type="datetime" />
-          <Property Name="Data_Zwrotu" Type="datetime" />
+          <Property Name="Data_Wypozyczenia" Type="datetime" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="datetime" Nullable="false" />
+          <Property Name="Stan" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Wypozyczenia_Ksiazki">
           <Key>
@@ -131,8 +144,20 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Czytelnika" Type="int" />
           <Property Name="ID_Ksiazki" Type="int" />
-          <Property Name="Data_Wypozyczenia" Type="datetime" />
-          <Property Name="Data_Zwrotu" Type="datetime" />
+          <Property Name="Data_Wypozyczenia" Type="datetime" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="datetime" Nullable="false" />
+          <Property Name="Stan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wypozyczenia_Praca_Naukowa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Czytelnika" Type="int" />
+          <Property Name="ID_Pracy" Type="int" />
+          <Property Name="Data_Wypozyczenia" Type="datetime" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="datetime" Nullable="false" />
+          <Property Name="Stan" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__Czasopism__ID_Au__3B75D760">
           <End Role="Autor" Type="Self.Autor" Multiplicity="0..1">
@@ -246,6 +271,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Wypozycze__ID_Cz__08B54D69">
+          <End Role="Czytelnik" Type="Self.Czytelnik" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wypozyczenia_Praca_Naukowa" Type="Self.Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Czytelnik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="ID_Czytelnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Wypozycze__ID_Cz__4222D4EF">
           <End Role="Czytelnik" Type="Self.Czytelnik" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -330,6 +369,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Wypozycze__ID_Pr__09A971A2">
+          <End Role="Praca_Naukowa" Type="Self.Praca_Naukowa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Wypozyczenia_Praca_Naukowa" Type="Self.Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Praca_Naukowa">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="ID_Pracy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Czytelnik_ToRola">
           <End Role="Rola" Type="Self.Rola" Multiplicity="1" />
           <End Role="Czytelnik" Type="Self.Czytelnik" Multiplicity="*" />
@@ -339,6 +392,54 @@
             </Principal>
             <Dependent Role="Czytelnik">
               <PropertyRef Name="Rola" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Czasopisma_ToStan">
+          <End Role="Stan" Type="Self.Stan" Multiplicity="1" />
+          <End Role="Wypozyczenia_Czasopisma" Type="Self.Wypozyczenia_Czasopisma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Czasopisma">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Filmu_ToStan">
+          <End Role="Stan" Type="Self.Stan" Multiplicity="1" />
+          <End Role="Wypozyczenia_Filmu" Type="Self.Wypozyczenia_Filmu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Filmu">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Ksiazki_ToStan">
+          <End Role="Stan" Type="Self.Stan" Multiplicity="1" />
+          <End Role="Wypozyczenia_Ksiazki" Type="Self.Wypozyczenia_Ksiazki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Ksiazki">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Praca_Naukowa_ToStan">
+          <End Role="Stan" Type="Self.Stan" Multiplicity="1" />
+          <End Role="Wypozyczenia_Praca_Naukowa" Type="Self.Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="Stan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,11 +453,13 @@
           <EntitySet Name="Praca_Naukowa" EntityType="Self.Praca_Naukowa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rola" EntityType="Self.Rola" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slowo_Kluczowe" EntityType="Self.Slowo_Kluczowe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stan" EntityType="Self.Stan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wiadomosci" EntityType="Self.Wiadomosci" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wydawca" EntityType="Self.Wydawca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wypozyczenia_Czasopisma" EntityType="Self.Wypozyczenia_Czasopisma" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wypozyczenia_Filmu" EntityType="Self.Wypozyczenia_Filmu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wypozyczenia_Ksiazki" EntityType="Self.Wypozyczenia_Ksiazki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wypozyczenia_Praca_Naukowa" EntityType="Self.Wypozyczenia_Praca_Naukowa" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Czasopism__ID_Au__3B75D760" Association="Self.FK__Czasopism__ID_Au__3B75D760">
             <End Role="Autor" EntitySet="Autor" />
             <End Role="Czasopismo" EntitySet="Czasopismo" />
@@ -389,6 +492,10 @@
             <End Role="Czytelnik" EntitySet="Czytelnik" />
             <End Role="Wiadomosci" EntitySet="Wiadomosci" />
           </AssociationSet>
+          <AssociationSet Name="FK__Wypozycze__ID_Cz__08B54D69" Association="Self.FK__Wypozycze__ID_Cz__08B54D69">
+            <End Role="Czytelnik" EntitySet="Czytelnik" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
+          </AssociationSet>
           <AssociationSet Name="FK__Wypozycze__ID_Cz__4222D4EF" Association="Self.FK__Wypozycze__ID_Cz__4222D4EF">
             <End Role="Czytelnik" EntitySet="Czytelnik" />
             <End Role="Wypozyczenia_Czasopisma" EntitySet="Wypozyczenia_Czasopisma" />
@@ -413,9 +520,29 @@
             <End Role="Ksiazka" EntitySet="Ksiazka" />
             <End Role="Wypozyczenia_Ksiazki" EntitySet="Wypozyczenia_Ksiazki" />
           </AssociationSet>
+          <AssociationSet Name="FK__Wypozycze__ID_Pr__09A971A2" Association="Self.FK__Wypozycze__ID_Pr__09A971A2">
+            <End Role="Praca_Naukowa" EntitySet="Praca_Naukowa" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
+          </AssociationSet>
           <AssociationSet Name="FK_Czytelnik_ToRola" Association="Self.FK_Czytelnik_ToRola">
             <End Role="Rola" EntitySet="Rola" />
             <End Role="Czytelnik" EntitySet="Czytelnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Czasopisma_ToStan" Association="Self.FK_Wypozyczenia_Czasopisma_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Czasopisma" EntitySet="Wypozyczenia_Czasopisma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Filmu_ToStan" Association="Self.FK_Wypozyczenia_Filmu_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Filmu" EntitySet="Wypozyczenia_Filmu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Ksiazki_ToStan" Association="Self.FK_Wypozyczenia_Ksiazki_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Ksiazki" EntitySet="Wypozyczenia_Ksiazki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Praca_Naukowa_ToStan" Association="Self.FK_Wypozyczenia_Praca_Naukowa_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -455,6 +582,7 @@
           <NavigationProperty Name="Autor" Relationship="Self.FK__Czasopism__ID_Au__3B75D760" FromRole="Czasopismo" ToRole="Autor" />
           <NavigationProperty Name="Wydawca" Relationship="Self.FK__Czasopism__ID_Wy__3A81B327" FromRole="Czasopismo" ToRole="Wydawca" />
           <NavigationProperty Name="Wypozyczenia_Czasopisma" Relationship="Self.FK__Wypozycze__ID_Cz__4316F928" FromRole="Czasopismo" ToRole="Wypozyczenia_Czasopisma" />
+          <Property Name="Stan_Magazynowy" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Czytelnik">
           <Key>
@@ -473,6 +601,7 @@
           <Property Name="Rola" Type="Int32" Nullable="false" />
           <Property Name="Wazne" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Rola1" Relationship="LibraryManagementDataModel.FK_Czytelnik_ToRola" FromRole="Czytelnik" ToRole="Rola" />
+          <NavigationProperty Name="Wypozyczenia_Praca_Naukowa" Relationship="LibraryManagementDataModel.FK__Wypozycze__ID_Cz__08B54D69" FromRole="Czytelnik" ToRole="Wypozyczenia_Praca_Naukowa" />
         </EntityType>
         <EntityType Name="Film">
           <Key>
@@ -483,6 +612,7 @@
           <Property Name="ID_Aktora" Type="Int32" />
           <NavigationProperty Name="Aktor" Relationship="Self.FK__Film__ID_Aktora__3C69FB99" FromRole="Film" ToRole="Aktor" />
           <NavigationProperty Name="Wypozyczenia_Filmu" Relationship="Self.FK__Wypozycze__ID_Fi__44FF419A" FromRole="Film" ToRole="Wypozyczenia_Filmu" />
+          <Property Name="Stan_Magazynowy" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Ksiazka">
           <Key>
@@ -500,6 +630,7 @@
           <NavigationProperty Name="Slowo_Kluczowe" Relationship="Self.FK__Ksiazka__ID_Slow__3F466844" FromRole="Ksiazka" ToRole="Slowo_Kluczowe" />
           <NavigationProperty Name="Wydawca" Relationship="Self.FK__Ksiazka__ID_Wyda__3D5E1FD2" FromRole="Ksiazka" ToRole="Wydawca" />
           <NavigationProperty Name="Wypozyczenia_Ksiazki" Relationship="Self.FK__Wypozycze__ID_Ks__46E78A0C" FromRole="Ksiazka" ToRole="Wypozyczenia_Ksiazki" />
+          <Property Name="Stan_Magazynowy" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Praca_Naukowa">
           <Key>
@@ -509,6 +640,8 @@
           <Property Name="Tytul" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ID_Autora" Type="Int32" />
           <NavigationProperty Name="Autor" Relationship="Self.FK__Praca_Nau__ID_Au__403A8C7D" FromRole="Praca_Naukowa" ToRole="Autor" />
+          <Property Name="Stan_Magazynowy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Wypozyczenia_Praca_Naukowa" Relationship="LibraryManagementDataModel.FK__Wypozycze__ID_Pr__09A971A2" FromRole="Praca_Naukowa" ToRole="Wypozyczenia_Praca_Naukowa" />
         </EntityType>
         <EntityType Name="Slowo_Kluczowe">
           <Key>
@@ -544,10 +677,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Czytelnika" Type="Int32" />
           <Property Name="ID_Czasopisma" Type="Int32" />
-          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" />
-          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" />
+          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Czasopismo" Relationship="Self.FK__Wypozycze__ID_Cz__4316F928" FromRole="Wypozyczenia_Czasopisma" ToRole="Czasopismo" />
           <NavigationProperty Name="Czytelnik" Relationship="Self.FK__Wypozycze__ID_Cz__4222D4EF" FromRole="Wypozyczenia_Czasopisma" ToRole="Czytelnik" />
+          <Property Name="Stan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stan1" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Czasopisma_ToStan" FromRole="Wypozyczenia_Czasopisma" ToRole="Stan" />
         </EntityType>
         <EntityType Name="Wypozyczenia_Filmu">
           <Key>
@@ -556,10 +691,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Czytelnika" Type="Int32" />
           <Property Name="ID_Filmu" Type="Int32" />
-          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" />
-          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" />
+          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Czytelnik" Relationship="Self.FK__Wypozycze__ID_Cz__440B1D61" FromRole="Wypozyczenia_Filmu" ToRole="Czytelnik" />
           <NavigationProperty Name="Film" Relationship="Self.FK__Wypozycze__ID_Fi__44FF419A" FromRole="Wypozyczenia_Filmu" ToRole="Film" />
+          <Property Name="Stan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stan1" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Filmu_ToStan" FromRole="Wypozyczenia_Filmu" ToRole="Stan" />
         </EntityType>
         <EntityType Name="Wypozyczenia_Ksiazki">
           <Key>
@@ -568,10 +705,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Czytelnika" Type="Int32" />
           <Property Name="ID_Ksiazki" Type="Int32" />
-          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" />
-          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" />
+          <Property Name="Data_Wypozyczenia" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Data_Zwrotu" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Czytelnik" Relationship="Self.FK__Wypozycze__ID_Cz__45F365D3" FromRole="Wypozyczenia_Ksiazki" ToRole="Czytelnik" />
           <NavigationProperty Name="Ksiazka" Relationship="Self.FK__Wypozycze__ID_Ks__46E78A0C" FromRole="Wypozyczenia_Ksiazki" ToRole="Ksiazka" />
+          <Property Name="Stan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stan1" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Ksiazki_ToStan" FromRole="Wypozyczenia_Ksiazki" ToRole="Stan" />
         </EntityType>
         <Association Name="FK__Film__ID_Aktora__3C69FB99">
           <End Role="Aktor" Type="Self.Aktor" Multiplicity="0..1">
@@ -844,6 +983,32 @@
             <End Role="Rola" EntitySet="Rola" />
             <End Role="Czytelnik" EntitySet="Czytelnik" />
           </AssociationSet>
+          <EntitySet Name="Stan" EntityType="LibraryManagementDataModel.Stan" />
+          <EntitySet Name="Wypozyczenia_Praca_Naukowa" EntityType="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa" />
+          <AssociationSet Name="FK__Wypozycze__ID_Cz__08B54D69" Association="LibraryManagementDataModel.FK__Wypozycze__ID_Cz__08B54D69">
+            <End Role="Czytelnik" EntitySet="Czytelnik" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wypozycze__ID_Pr__09A971A2" Association="LibraryManagementDataModel.FK__Wypozycze__ID_Pr__09A971A2">
+            <End Role="Praca_Naukowa" EntitySet="Praca_Naukowa" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Czasopisma_ToStan" Association="LibraryManagementDataModel.FK_Wypozyczenia_Czasopisma_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Czasopisma" EntitySet="Wypozyczenia_Czasopisma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Filmu_ToStan" Association="LibraryManagementDataModel.FK_Wypozyczenia_Filmu_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Filmu" EntitySet="Wypozyczenia_Filmu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Ksiazki_ToStan" Association="LibraryManagementDataModel.FK_Wypozyczenia_Ksiazki_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Ksiazki" EntitySet="Wypozyczenia_Ksiazki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenia_Praca_Naukowa_ToStan" Association="LibraryManagementDataModel.FK_Wypozyczenia_Praca_Naukowa_ToStan">
+            <End Role="Stan" EntitySet="Stan" />
+            <End Role="Wypozyczenia_Praca_Naukowa" EntitySet="Wypozyczenia_Praca_Naukowa" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Rola">
           <Key>
@@ -862,6 +1027,107 @@
             </Principal>
             <Dependent Role="Czytelnik">
               <PropertyRef Name="Rola" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Stan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opis" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Wypozyczenia_Czasopisma" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Czasopisma_ToStan" FromRole="Stan" ToRole="Wypozyczenia_Czasopisma" />
+          <NavigationProperty Name="Wypozyczenia_Filmu" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Filmu_ToStan" FromRole="Stan" ToRole="Wypozyczenia_Filmu" />
+          <NavigationProperty Name="Wypozyczenia_Ksiazki" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Ksiazki_ToStan" FromRole="Stan" ToRole="Wypozyczenia_Ksiazki" />
+          <NavigationProperty Name="Wypozyczenia_Praca_Naukowa" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Praca_Naukowa_ToStan" FromRole="Stan" ToRole="Wypozyczenia_Praca_Naukowa" />
+        </EntityType>
+        <EntityType Name="Wypozyczenia_Praca_Naukowa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Czytelnika" Type="Int32" />
+          <Property Name="ID_Pracy" Type="Int32" />
+          <Property Name="Data_Wypozyczenia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Zwrotu" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Stan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Czytelnik" Relationship="LibraryManagementDataModel.FK__Wypozycze__ID_Cz__08B54D69" FromRole="Wypozyczenia_Praca_Naukowa" ToRole="Czytelnik" />
+          <NavigationProperty Name="Praca_Naukowa" Relationship="LibraryManagementDataModel.FK__Wypozycze__ID_Pr__09A971A2" FromRole="Wypozyczenia_Praca_Naukowa" ToRole="Praca_Naukowa" />
+          <NavigationProperty Name="Stan1" Relationship="LibraryManagementDataModel.FK_Wypozyczenia_Praca_Naukowa_ToStan" FromRole="Wypozyczenia_Praca_Naukowa" ToRole="Stan" />
+        </EntityType>
+        <Association Name="FK__Wypozycze__ID_Cz__08B54D69">
+          <End Type="LibraryManagementDataModel.Czytelnik" Role="Czytelnik" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa" Role="Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Czytelnik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="ID_Czytelnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wypozycze__ID_Pr__09A971A2">
+          <End Type="LibraryManagementDataModel.Praca_Naukowa" Role="Praca_Naukowa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa" Role="Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Praca_Naukowa">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="ID_Pracy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Czasopisma_ToStan">
+          <End Type="LibraryManagementDataModel.Stan" Role="Stan" Multiplicity="1" />
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Czasopisma" Role="Wypozyczenia_Czasopisma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Czasopisma">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Filmu_ToStan">
+          <End Type="LibraryManagementDataModel.Stan" Role="Stan" Multiplicity="1" />
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Filmu" Role="Wypozyczenia_Filmu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Filmu">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Ksiazki_ToStan">
+          <End Type="LibraryManagementDataModel.Stan" Role="Stan" Multiplicity="1" />
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Ksiazki" Role="Wypozyczenia_Ksiazki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Ksiazki">
+              <PropertyRef Name="Stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenia_Praca_Naukowa_ToStan">
+          <End Type="LibraryManagementDataModel.Stan" Role="Stan" Multiplicity="1" />
+          <End Type="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa" Role="Wypozyczenia_Praca_Naukowa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenia_Praca_Naukowa">
+              <PropertyRef Name="Stan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -892,6 +1158,7 @@
           <EntitySetMapping Name="Czasopismo">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Czasopismo">
               <MappingFragment StoreEntitySet="Czasopismo">
+                <ScalarProperty Name="Stan_Magazynowy" ColumnName="Stan_Magazynowy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -918,6 +1185,7 @@
           <EntitySetMapping Name="Film">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Film">
               <MappingFragment StoreEntitySet="Film">
+                <ScalarProperty Name="Stan_Magazynowy" ColumnName="Stan_Magazynowy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
                 <ScalarProperty Name="ID_Aktora" ColumnName="ID_Aktora" />
@@ -927,6 +1195,7 @@
           <EntitySetMapping Name="Ksiazka">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Ksiazka">
               <MappingFragment StoreEntitySet="Ksiazka">
+                <ScalarProperty Name="Stan_Magazynowy" ColumnName="Stan_Magazynowy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -941,6 +1210,7 @@
           <EntitySetMapping Name="Praca_Naukowa">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Praca_Naukowa">
               <MappingFragment StoreEntitySet="Praca_Naukowa">
+                <ScalarProperty Name="Stan_Magazynowy" ColumnName="Stan_Magazynowy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
                 <ScalarProperty Name="ID_Autora" ColumnName="ID_Autora" />
@@ -976,6 +1246,7 @@
           <EntitySetMapping Name="Wypozyczenia_Czasopisma">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Wypozyczenia_Czasopisma">
               <MappingFragment StoreEntitySet="Wypozyczenia_Czasopisma">
+                <ScalarProperty Name="Stan" ColumnName="Stan" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Czytelnika" ColumnName="ID_Czytelnika" />
                 <ScalarProperty Name="ID_Czasopisma" ColumnName="ID_Czasopisma" />
@@ -987,6 +1258,7 @@
           <EntitySetMapping Name="Wypozyczenia_Filmu">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Wypozyczenia_Filmu">
               <MappingFragment StoreEntitySet="Wypozyczenia_Filmu">
+                <ScalarProperty Name="Stan" ColumnName="Stan" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Czytelnika" ColumnName="ID_Czytelnika" />
                 <ScalarProperty Name="ID_Filmu" ColumnName="ID_Filmu" />
@@ -998,6 +1270,7 @@
           <EntitySetMapping Name="Wypozyczenia_Ksiazki">
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Wypozyczenia_Ksiazki">
               <MappingFragment StoreEntitySet="Wypozyczenia_Ksiazki">
+                <ScalarProperty Name="Stan" ColumnName="Stan" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Czytelnika" ColumnName="ID_Czytelnika" />
                 <ScalarProperty Name="ID_Ksiazki" ColumnName="ID_Ksiazki" />
@@ -1010,6 +1283,26 @@
             <EntityTypeMapping TypeName="LibraryManagementDataModel.Rola">
               <MappingFragment StoreEntitySet="Rola">
                 <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stan">
+            <EntityTypeMapping TypeName="LibraryManagementDataModel.Stan">
+              <MappingFragment StoreEntitySet="Stan">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wypozyczenia_Praca_Naukowa">
+            <EntityTypeMapping TypeName="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa">
+              <MappingFragment StoreEntitySet="Wypozyczenia_Praca_Naukowa">
+                <ScalarProperty Name="Stan" ColumnName="Stan" />
+                <ScalarProperty Name="Data_Zwrotu" ColumnName="Data_Zwrotu" />
+                <ScalarProperty Name="Data_Wypozyczenia" ColumnName="Data_Wypozyczenia" />
+                <ScalarProperty Name="ID_Pracy" ColumnName="ID_Pracy" />
+                <ScalarProperty Name="ID_Czytelnika" ColumnName="ID_Czytelnika" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

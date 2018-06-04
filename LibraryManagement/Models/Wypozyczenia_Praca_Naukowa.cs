@@ -12,17 +12,17 @@ namespace LibraryManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Wypozyczenia_Czasopisma
+    public partial class Wypozyczenia_Praca_Naukowa
     {
         public int ID { get; set; }
         public Nullable<int> ID_Czytelnika { get; set; }
-        public Nullable<int> ID_Czasopisma { get; set; }
+        public Nullable<int> ID_Pracy { get; set; }
         public System.DateTime Data_Wypozyczenia { get; set; }
         public System.DateTime Data_Zwrotu { get; set; }
         public int Stan { get; set; }
     
-        public virtual Czasopismo Czasopismo { get; set; }
         public virtual Czytelnik Czytelnik { get; set; }
+        public virtual Praca_Naukowa Praca_Naukowa { get; set; }
         public virtual Stan Stan1 { get; set; }
     }
 }

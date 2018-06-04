@@ -4,21 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LibraryManagement.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagement.Controllers
 {
     public class KoszykController : Controller
     {
-        private List<Rzecz> list;// = new List<Rzecz>();
+        private List<Rzecz> list;
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
         // GET: Koszyk
         public ActionResult Index()
         {
-            //list.Add(new Rzecz(db.Film.Find(1),1));
-            //list.Add(new Rzecz(db.Ksiazka.Find(2),1));
-           // list.Add(new Rzecz(db.Czasopismo.Find(1),1));
-           // list.Add(new Rzecz(db.Praca_Naukowa.Find(1),1));
-            return View();
+            if (Session["Koszyk"] == null)
+            {
+                list = new List<Rzecz>();
+            }
+            else
+            {
+                list = (List<Rzecz>)Session["Koszyk"];
+            }
+            return View(list.ToList());
         }
 
         public ActionResult Add(int id, int type)

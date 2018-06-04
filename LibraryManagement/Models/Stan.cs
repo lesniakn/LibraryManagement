@@ -12,20 +12,26 @@ namespace LibraryManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Praca_Naukowa
+    public partial class Stan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Praca_Naukowa()
+        public Stan()
         {
+            this.Wypozyczenia_Czasopisma = new HashSet<Wypozyczenia_Czasopisma>();
+            this.Wypozyczenia_Filmu = new HashSet<Wypozyczenia_Filmu>();
+            this.Wypozyczenia_Ksiazki = new HashSet<Wypozyczenia_Ksiazki>();
             this.Wypozyczenia_Praca_Naukowa = new HashSet<Wypozyczenia_Praca_Naukowa>();
         }
     
-        public int ID { get; set; }
-        public string Tytul { get; set; }
-        public Nullable<int> ID_Autora { get; set; }
-        public int Stan_Magazynowy { get; set; }
+        public int Id { get; set; }
+        public string Opis { get; set; }
     
-        public virtual Autor Autor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wypozyczenia_Czasopisma> Wypozyczenia_Czasopisma { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wypozyczenia_Filmu> Wypozyczenia_Filmu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wypozyczenia_Ksiazki> Wypozyczenia_Ksiazki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenia_Praca_Naukowa> Wypozyczenia_Praca_Naukowa { get; set; }
     }

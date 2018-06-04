@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f474e36310e042f39ae5e123a2dde28b" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Aktor" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Autor" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Czasopismo" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Czytelnik" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Film" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Ksiazka" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Praca_Naukowa" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Aktor" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Autor" Width="1.5" PointX="1.125" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Czasopismo" Width="1.5" PointX="3.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Czytelnik" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Film" Width="1.5" PointX="6.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Ksiazka" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Praca_Naukowa" Width="1.5" PointX="3.125" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryManagementDataModel.Slowo_Kluczowe" Width="1.5" PointX="3.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Wiadomosci" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Wydawca" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Czasopisma" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Filmu" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Ksiazki" Width="1.5" PointX="11.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wiadomosci" Width="1.5" PointX="8.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wydawca" Width="1.5" PointX="1" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Czasopisma" Width="1.5" PointX="8.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Filmu" Width="1.5" PointX="8.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Ksiazki" Width="1.5" PointX="11.5" PointY="7.875" IsExpanded="true" />
         <AssociationConnector Association="LibraryManagementDataModel.FK__Film__ID_Aktora__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryManagementDataModel.FK__Czasopism__ID_Au__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryManagementDataModel.FK__Ksiazka__ID_Auto__3E52440B" ManuallyRouted="false" />
@@ -34,6 +34,14 @@
         <AssociationConnector Association="LibraryManagementDataModel.FK__Wypozycze__ID_Ks__46E78A0C" ManuallyRouted="false" />
         <EntityTypeShape EntityType="LibraryManagementDataModel.Rola" Width="1.5" PointX="3.75" PointY="1.5" />
         <AssociationConnector Association="LibraryManagementDataModel.FK_Czytelnik_ToRola" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Stan" Width="1.5" PointX="10.75" PointY="4.125" />
+        <EntityTypeShape EntityType="LibraryManagementDataModel.Wypozyczenia_Praca_Naukowa" Width="1.5" PointX="9.875" PointY="14.5" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK__Wypozycze__ID_Cz__08B54D69" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK__Wypozycze__ID_Pr__09A971A2" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK_Wypozyczenia_Czasopisma_ToStan" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK_Wypozyczenia_Filmu_ToStan" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK_Wypozyczenia_Ksiazki_ToStan" />
+        <AssociationConnector Association="LibraryManagementDataModel.FK_Wypozyczenia_Praca_Naukowa_ToStan" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -227,6 +227,9 @@
     <Compile Include="Models\Slowo_Kluczowe.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Stan.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Wiadomosci.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
@@ -240,6 +243,9 @@
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Wypozyczenia_Ksiazki.cs">
+      <DependentUpon>LibraryManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wypozyczenia_Praca_Naukowa.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
