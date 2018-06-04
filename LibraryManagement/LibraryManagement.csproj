@@ -172,6 +172,7 @@
     <Compile Include="Controllers\FilmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KontaController.cs" />
+    <Compile Include="Controllers\KoszykController.cs" />
     <Compile Include="Controllers\KsiazkaController.cs" />
     <Compile Include="Controllers\Praca_NaukowaController.cs" />
     <Compile Include="Controllers\Slowo_KluczoweController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Models\Rola.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Rzecz.cs" />
     <Compile Include="Models\Slowo_Kluczowe.cs">
       <DependentUpon>LibraryManagementModel.tt</DependentUpon>
     </Compile>
@@ -366,6 +368,7 @@
     <Content Include="Views\Konta\Dashboard.cshtml" />
     <Content Include="Views\Konta\Login.cshtml" />
     <Content Include="Views\Konta\Register.cshtml" />
+    <Content Include="Views\Koszyk\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
