@@ -58,7 +58,7 @@ namespace LibraryManagement.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Ksiazki");
+                        return RedirectToAction("Index", "Ksiazka");
                     }
                 }
             }
