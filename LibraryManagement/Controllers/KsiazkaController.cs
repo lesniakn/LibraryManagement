@@ -17,9 +17,34 @@ namespace LibraryManagement.Controllers
         // GET: Ksiazka
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString)
         {
-            var ksiazka = db.Ksiazka.Include(k => k.Autor).Include(k => k.Slowo_Kluczowe).Include(k => k.Wydawca);
+            //var ksiazka = db.Ksiazka.Include(k => k.Autor).Include(k => k.Slowo_Kluczowe).Include(k => k.Wydawca);
+            ViewBag.TytulSortParm = String.IsNullOrEmpty(sortOrder) ? "tytul_desc" : "";
+            ViewBag.DostepneSortParm = sortOrder == "Dostepne" ?  "dostepne_desc" : "Dostepne";
+            var ksiazka = from s in db.Ksiazka
+                        select s;
+            switch (sortOrder)
+            {
+                case "tytul_desc":
+                    ksiazka = ksiazka.OrderByDescending(s => s.Tytul);
+                    break;
+                case "Dostepne":
+                    ksiazka = ksiazka.OrderBy(s => s.Stan_Magazynowy);
+                    break;
+                case "Dostepne_desc":
+                    ksiazka = ksiazka.OrderByDescending(s => s.Stan_Magazynowy);
+                    break;
+
+                default:
+                    ksiazka = ksiazka.OrderBy(s => s.Tytul);
+                    break;
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ksiazka = ksiazka.Where(s => s.Tytul.Contains(searchString));
+            }
             return View(ksiazka.ToList());
         }
 

@@ -13,66 +13,66 @@
         </p>
     }
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Tytuł")
-        </th>
-        <th>
-            @Html.DisplayName("ISBN")
-        </th>
-        <th>
-            @Html.DisplayName("Ilość stron")
-        </th>
-
-        <th>
-            @Html.DisplayName("Autor")
-        </th>
-        <th>
-            @Html.DisplayName("Wydawca")
-        </th>
-        <th>
-            @Html.DisplayName("Dostępne")
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tytul)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Strony)
-            </td>
+            <th>
+                @Html.ActionLink("Tytuł", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.DisplayName("ISBN")
+            </th>
+            <th>
+                @Html.DisplayName("Ilość stron")
+            </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Autor.Imie)
-                @Html.DisplayFor(modelItem => item.Autor.Nazwisko)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Wydawca.Nazwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stan_Magazynowy)
-            </td>
-            @if (Session["UserID"] != null && Session["UserRole"] != null)
-            {
-                <td>
-                    @if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
-                    {
-
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) @:|
-                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) @:|
-                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID }) @:|
-
-                    }
-                    @Html.ActionLink("Dodaj do Koszyka", "Add", "Koszyk", new { id = item.ID, type = 2 }, null)
-                </td>
-            }
+            <th>
+                @Html.DisplayName("Autor")
+            </th>
+            <th>
+                @Html.DisplayName("Wydawca")
+            </th>
+            <th>
+                @Html.ActionLink("Dostępne", "Index", new { sortOrder = ViewBag.DostepneSortParm })
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Strony)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor.Imie)
+                    @Html.DisplayFor(modelItem => item.Autor.Nazwisko)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wydawca.Nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stan_Magazynowy)
+                </td>
+                @if (Session["UserID"] != null && Session["UserRole"] != null)
+                {
+                    <td>
+                        @if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
+                        {
+
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) @:|
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) @:|
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.ID }) @:|
+
+                        }
+                        @Html.ActionLink("Dodaj do Koszyka", "Add", "Koszyk", new { id = item.ID, type = 2 }, null)
+                    </td>
+                }
+            </tr>
+        }
+    </table>
