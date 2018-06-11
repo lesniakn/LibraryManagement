@@ -52,9 +52,13 @@ namespace LibraryManagement.Models
     {
         public CzytelnikValidator()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("Niepoprawny adres email");
-            RuleFor(x => x.Uzytkownik).NotEmpty().WithMessage("Login jest wymagany");
+            RuleFor(x => x.Imie).NotEmpty().WithMessage("Imię jest wymagane");
+            RuleFor(x => x.Nazwisko).NotEmpty().WithMessage("Nazwisko jest wymagane");
+            RuleFor(x => x.Uzytkownik).NotEmpty().WithMessage("Nazwa użytkownika jest wymagana");
             RuleFor(x => x.Haslo).NotEmpty().WithMessage("Hasło jest wymagane");
+            RuleFor(x => x.Email).EmailAddress().WithMessage("Niepoprawny adres email");
+
+
         }
     }
 

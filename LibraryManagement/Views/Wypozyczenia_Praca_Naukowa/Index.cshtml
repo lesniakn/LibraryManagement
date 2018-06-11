@@ -4,24 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista Wypożyczonych Prac Naukowych</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Wypozyczenia)
+            @Html.DisplayName("Data wypożyczenia")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Zwrotu)
+            @Html.DisplayName("Data zwrotu")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+            @Html.DisplayName("Wypożyczał")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Praca_Naukowa.Tytul)
+            @Html.DisplayName("Tytuł")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Stan1.Opis)
@@ -40,6 +37,8 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+                @Html.DisplayFor(modelItem => item.Czytelnik.Nazwisko)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Praca_Naukowa.Tytul)
@@ -49,8 +48,8 @@
                 if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
                 {
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID })
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
                     </td>
                 }
             }

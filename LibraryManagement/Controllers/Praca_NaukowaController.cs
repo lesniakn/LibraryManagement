@@ -52,7 +52,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Tytul,ID_Autora")] Praca_Naukowa praca_Naukowa)
+        public ActionResult Create([Bind(Include = "ID,Tytul,ID_Autora,Stan_Magazynowy")] Praca_Naukowa praca_Naukowa)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Tytul,ID_Autora")] Praca_Naukowa praca_Naukowa)
+        public ActionResult Edit([Bind(Include = "ID,Tytul,ID_Autora,Stan_Magazynowy")] Praca_Naukowa praca_Naukowa)
         {
             if (ModelState.IsValid)
             {

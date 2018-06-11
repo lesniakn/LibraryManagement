@@ -54,7 +54,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,ID_Aktora,ID_Slowo_Kluczowe")] Ksiazka ksiazka)
+        public ActionResult Create([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,ID_Aktora,Stan_Magazynowy")] Ksiazka ksiazka)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,ID_Aktora,ID_Slowo_Kluczowe")] Ksiazka ksiazka)
+        public ActionResult Edit([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,ID_Aktora,Stan_Magazynowy")] Ksiazka ksiazka)
         {
             if (ModelState.IsValid)
             {

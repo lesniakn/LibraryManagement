@@ -53,7 +53,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora")] Czasopismo czasopismo)
+        public ActionResult Create([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,Stan_Magazynowy")] Czasopismo czasopismo)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora")] Czasopismo czasopismo)
+        public ActionResult Edit([Bind(Include = "ID,Tytul,ISBN,Strony,ID_Wydawcy,ID_Autora,Stan_Magazynowy")] Czasopismo czasopismo)
         {
             if (ModelState.IsValid)
             {

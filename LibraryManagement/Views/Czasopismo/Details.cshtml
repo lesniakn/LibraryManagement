@@ -4,30 +4,25 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Szczegóły</h2>
 
 <div>
-    <h4>Czasopismo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Tytul)
+            @Html.DisplayName("Tytuł")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Tytul)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </dt>
-
+        
         <dd>
-            @Html.DisplayFor(model => model.ISBN)
+            @Html.HiddenFor(model => model.ISBN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Strony)
+            @Html.DisplayName("Ilość stron")
         </dt>
 
         <dd>
@@ -35,24 +30,33 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Autor.Imie)
+            @Html.DisplayName("Autor")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Autor.Imie)
+            @Html.DisplayFor(model => model.Autor.Nazwisko)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Wydawca.Nazwa)
+            @Html.DisplayName("Wydawca")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Wydawca.Nazwa)
         </dd>
 
+        <dt>
+            @Html.DisplayName("Stan magazynowy")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stan_Magazynowy)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Powrót do Listy", "Index")
 </p>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibraryManagement.Models;
+using FluentValidation.Results;
 
 namespace LibraryManagement.Controllers
 {
@@ -50,7 +51,7 @@ namespace LibraryManagement.Controllers
             {
                 return HttpNotFound();
             }
-            stan = wypozyczenia_Filmu.Stan;
+            ViewBag.BStan = wypozyczenia_Filmu.Stan;
             ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Filmu.Stan);
             return View(wypozyczenia_Filmu);
         }
@@ -60,8 +61,18 @@ namespace LibraryManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Filmu,Data_Wypozyczenia,Data_Zwrotu")] Wypozyczenia_Filmu wypozyczenia_Filmu, int bstan)
+        public ActionResult Edit([Bind(Include = "ID,ID_Czytelnika,ID_Filmu,Data_Wypozyczenia,Data_Zwrotu,Stan")] Wypozyczenia_Filmu wypozyczenia_Filmu, int bstan)
         {
+            FilmValidator validator = new FilmValidator();
+            ValidationResult result = validator.Validate(wypozyczenia_Filmu);
+            
+            if (!result.IsValid)
+                {
+                ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Filmu.Stan);
+                ViewBag.Error = result.Errors[0].ErrorMessage;
+                return View(wypozyczenia_Filmu);
+                }
+
             if (ModelState.IsValid)
             {
                 db.Entry(wypozyczenia_Filmu).State = EntityState.Modified;

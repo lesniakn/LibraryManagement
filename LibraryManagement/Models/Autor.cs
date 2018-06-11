@@ -11,7 +11,8 @@ namespace LibraryManagement.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Autor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +24,11 @@ namespace LibraryManagement.Models
         }
     
         public int ID { get; set; }
+        [Required(ErrorMessage = "Wprowadü imiÍ")]
+        [StringLength(50)]
         public string Imie { get; set; }
+        [Required(ErrorMessage = "Wprowadü nazwisko")]
+        [StringLength(50)]
         public string Nazwisko { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

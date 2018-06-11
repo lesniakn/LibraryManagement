@@ -19,7 +19,7 @@
         @Html.HiddenFor(model => model.Data_Wypozyczenia)
         @Html.Hidden("bstan", Model.Stan)
         <div class="form-group">
-            @Html.LabelFor(model => model.Data_Zwrotu, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Data zwrotu", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Data_Zwrotu, new { htmlAttributes = new { @class = "datafield", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.Data_Zwrotu, "", new { @class = "text-danger" })
@@ -40,7 +40,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do Listy", "Index")
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -7,26 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibraryManagement.Models;
+using FluentValidation.Results;
 
 namespace LibraryManagement.Controllers
 {
     [Authorize]
     public class CzytelnikController : Controller
     {
-        
         private LibraryManagementDataEntities db = new LibraryManagementDataEntities();
-
         // GET: Czytelnik
         [Authorize]
-        [AllowAnonymous]
+        [HttpGet]
         public ActionResult Index()
         {
             int id = 0;
-               if (Session["UserID"] != null)
-               {
-                    id = Int32.Parse(Session["UserID"].ToString());
-               }
-         //ViewBag.UserName = db.Czytelnik.Find(id).Uzytkownik.ToString();
+            if (Session["UserID"] != null)
+            {
+                id = Int32.Parse(Session["UserID"].ToString());
+            }
+            //ViewBag.UserName = db.Czytelnik.Find(id).Uzytkownik.ToString();
             return View(db.Czytelnik.ToList());
         }
 
@@ -51,6 +50,7 @@ namespace LibraryManagement.Controllers
         {
             return View();
         }
+
         private string RolaToString(int? rola)
         {
             switch (rola)
@@ -63,7 +63,7 @@ namespace LibraryManagement.Controllers
                     {
                         return "Pracownik";
                     }
-               case 2:
+                case 2:
                     {
                         return "Administator";
                     }
@@ -74,50 +74,6 @@ namespace LibraryManagement.Controllers
             }
         }
 
-        private SelectList PopulateDropDownList(Czytelnik czytelnik)
-        {/*
-            //var roles = db.Czytelnik.GroupBy(x => x.Rola);
-            List<SelectListItem> items = new List<SelectListItem>();
-            SelectListItem item = null;
-            foreach (var role in roles)
-            {
-                switch (role.Key)
-                {
-                    case 0:
-                        {
-                            item = new SelectListItem() { Text = "Czytelnik", Value = "0" };
-                            items.Add(item);
-                            break;
-                        }
-                    case 1:
-                        {
-                            items.Add(new SelectListItem() { Text = "Pracownik", Value = "1" });
-                            break;
-                        }
-                    case 2:
-                        {
-                            items.Add(new SelectListItem() { Text = "Administator", Value = "2" });
-                            break;
-                        }
-                    default:
-                        {
-                            items.Add(new SelectListItem() { Text = "Nieznana Rola: " + role.Key, Value = role.Key.ToString() });
-                            break;
-                        }
-                }
-                if (item.Value.Equals(czytelnik.Rola.ToString()))
-                {
-                    item.Selected = true;
-                }
-            }
-
-
-            return new SelectList(items,"Value","Text", czytelnik.Rola);
-            */
-            return null;
-        }
-
-
         // POST: Czytelnik/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -127,6 +83,20 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                CzytelnikValidator validator = new CzytelnikValidator();
+                ValidationResult result = validator.Validate(czytelnik);
+
+                if (!result.IsValid)
+                {
+                    List<string> errors = new List<string>();
+                    foreach (ValidationFailure vf in result.Errors)
+                    {
+                        errors.Add(vf.ErrorMessage);
+                    }
+                    ViewBag.Error = errors;
+                    return View(czytelnik);
+                }
+
                 db.Czytelnik.Add(czytelnik);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -140,15 +110,15 @@ namespace LibraryManagement.Controllers
         {
             Czytelnik user = null;
             ViewBag.UserRole = null;
-                        if (Session["UserID"] != null)
-                           {
+            if (Session["UserID"] != null)
+            {
                 user = db.Czytelnik.Find(Int32.Parse(Session["UserID"].ToString()));
-                            }
-                        if (user != null)
-                            {
+            }
+            if (user != null)
+            {
                 ViewBag.UserRole = user.Rola;
-                            }
-            
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -158,12 +128,8 @@ namespace LibraryManagement.Controllers
             {
                 return HttpNotFound();
             }
-
             ViewBag.UserRoleString = RolaToString(czytelnik.Rola);
-            //SelectList list = PopulateDropDownList(czytelnik);
-                        //list.Where(x => x.Value.Equals(czytelnik.Rola.ToString())).FirstOrDefault().Selected = true;
-            ViewBag.RoleSelectList = new SelectList(db.Rola, "ID", "Nazwa", czytelnik.Rola); 
-
+            ViewBag.RoleSelectList = new SelectList(db.Rola, "ID", "Nazwa", czytelnik.Rola);
             return View(czytelnik);
         }
 
@@ -176,6 +142,22 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                CzytelnikValidator validator = new CzytelnikValidator();
+                ValidationResult result = validator.Validate(czytelnik);
+
+                if (!result.IsValid)
+                {
+                    List<string> errors = new List<string>();
+                    foreach (ValidationFailure vf in result.Errors)
+                    {
+                        errors.Add(vf.ErrorMessage);
+                    }
+                    ViewBag.Error = errors;
+                    ViewBag.UserRoleString = RolaToString(czytelnik.Rola);
+                    ViewBag.RoleSelectList = new SelectList(db.Rola, "ID", "Nazwa", czytelnik.Rola);
+                    return View(czytelnik);
+                }
+
                 db.Entry(czytelnik).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

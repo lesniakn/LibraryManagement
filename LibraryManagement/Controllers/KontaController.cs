@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using LibraryManagement.Models;
+using FluentValidation.Results;
 
 namespace LibraryManagement.Controllers
 {
@@ -30,12 +31,27 @@ namespace LibraryManagement.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(Czytelnik czytelnik)
+        public ActionResult Register([Bind(Include = "ID,Imie,Nazwisko,Uzytkownik,Haslo,Email")]Czytelnik czytelnik)
         {
-
             if (ModelState.IsValid)
             {
+                CzytelnikValidator validator = new CzytelnikValidator();
+                ValidationResult result = validator.Validate(czytelnik);
+
+                if (!result.IsValid)
+                {
+                    List<string> errors = new List<string>();
+                    foreach (ValidationFailure vf in result.Errors)
+                    {
+                        errors.Add(vf.ErrorMessage);
+                    }
+                    ViewBag.Error = errors;
+                    return View(czytelnik);
+                }
+
                 db.Czytelnik.Add(czytelnik);
+                db.SaveChanges();
+                return RedirectToAction("Login");
             }
             return View(czytelnik);
         }
@@ -46,9 +62,23 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<string> errors = new List<string>();
                 var currentuser = db.Czytelnik.Where(user => user.Uzytkownik.Equals(czytelnik.Uzytkownik) && user.Haslo.Equals(czytelnik.Haslo)).FirstOrDefault();
                 if (currentuser != null)
                 {
+                    LoginValidator validator = new LoginValidator();
+                    ValidationResult result = validator.Validate(currentuser);
+
+                    if (!result.IsValid)
+                    {
+                        foreach (ValidationFailure vf in result.Errors)
+                        {
+                            errors.Add(vf.ErrorMessage);
+                        }
+                        ViewBag.Error = errors;
+                        return View(czytelnik);
+                    }
+
                     FormsAuthentication.SetAuthCookie(currentuser.ID.ToString(), false);
                     Session["UserID"] = currentuser.ID.ToString();
                     Session["UserRole"] = currentuser.Rola.ToString();

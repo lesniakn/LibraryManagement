@@ -9,7 +9,7 @@
     if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
     {
         <p>
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("Dodaj nowego Aktora", "Create")
         </p>
     }
 }
@@ -27,21 +27,25 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Imie)
+                @Html.DisplayName("Imię")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nazwisko)
+                @Html.DisplayName("Nazwisko")
             </td>
             @if (Session["UserID"] != null && Session["UserRole"] != null)
             {
                 if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
                 {
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
                     </td>
                 }
+                else
+                    {
+                    <td></td>
+                    }
             }
 
         </tr>

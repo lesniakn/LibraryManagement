@@ -11,12 +11,15 @@ namespace LibraryManagement.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+
     public partial class Czytelnik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Czytelnik()
         {
+            this.Rola = 0;
             this.Wiadomosci = new HashSet<Wiadomosci>();
             this.Wypozyczenia_Czasopisma = new HashSet<Wypozyczenia_Czasopisma>();
             this.Wypozyczenia_Filmu = new HashSet<Wypozyczenia_Filmu>();

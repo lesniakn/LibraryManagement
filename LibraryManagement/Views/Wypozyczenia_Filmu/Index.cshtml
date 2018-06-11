@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista Wypożyczonych Filmów</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,16 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Wypozyczenia)
+            @Html.DisplayName("Data wypożyczenia")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Zwrotu)
+            @Html.DisplayName("Data zwrotu")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+            @Html.DisplayName("Wypożyczał")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Film.Tytul)
+            @Html.DisplayName("Tytuł")
+        </th>
+        <th>
+            @Html.DisplayName("Stan")
         </th>
         <th></th>
     </tr>
@@ -40,6 +43,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Film.Tytul)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stan1.Opis)
             </td>
             @if (Session["UserID"] != null && Session["UserRole"] != null)
             {

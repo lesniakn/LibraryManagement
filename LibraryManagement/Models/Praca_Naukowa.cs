@@ -11,7 +11,9 @@ namespace LibraryManagement.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+
     public partial class Praca_Naukowa
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +23,12 @@ namespace LibraryManagement.Models
         }
     
         public int ID { get; set; }
+        [Required(ErrorMessage = "Wprowadü Tytu≥")]
+        [StringLength(50)]
         public string Tytul { get; set; }
         public Nullable<int> ID_Autora { get; set; }
+        [Required(ErrorMessage = "Wprowadü stan magazynowy")]
+        [MaxLength(5)]
         public int Stan_Magazynowy { get; set; }
     
         public virtual Autor Autor { get; set; }

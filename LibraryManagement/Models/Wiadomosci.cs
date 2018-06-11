@@ -11,10 +11,13 @@ namespace LibraryManagement.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Wiadomosci
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "WprowadŸ treœæ wiadomoœci")]
+        [StringLength(200, MinimumLength = 13)]
         public string Tresc { get; set; }
         public Nullable<int> ID_Czytelnika { get; set; }
     

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibraryManagement.Models;
+using FluentValidation.Results;
+using FluentValidation;
 
 namespace LibraryManagement.Controllers
 {
@@ -64,6 +66,15 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                DateValitador valitador = new DateValitador();
+                ValidationResult res = valitador.Validate(wypozyczenia_Ksiazki);
+                if (!res.IsValid)
+                    {
+                    ViewBag.Stan = new SelectList(db.Stan, "ID", "Opis", wypozyczenia_Ksiazki.Stan);
+                    ViewBag.Error = "Error";
+                    return View(wypozyczenia_Ksiazki);
+                    }
+
                 db.Entry(wypozyczenia_Ksiazki).State = EntityState.Modified;
                 if (bstan != wypozyczenia_Ksiazki.Stan && wypozyczenia_Ksiazki.Stan == 3)
                 {
