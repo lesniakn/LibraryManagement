@@ -34,7 +34,6 @@ namespace LibraryManagement.Models
         public Nullable<int> ID_Wydawcy { get; set; }
         public Nullable<int> ID_Autora { get; set; }
         [Required(ErrorMessage = "Wprowadü stan magazynowy")]
-        [MaxLength(5)]
         public Nullable<int> Stan_Magazynowy { get; set; }
     
         public virtual Autor Autor { get; set; }

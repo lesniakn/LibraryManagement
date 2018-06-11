@@ -27,7 +27,6 @@ namespace LibraryManagement.Models
         public string Tytul { get; set; }
         public Nullable<int> ID_Aktora { get; set; }
         [Required(ErrorMessage = "Wprowadü stan magazynowy")]
-        [MaxLength(5)]
         public int Stan_Magazynowy { get; set; }
     
         public virtual Aktor Aktor { get; set; }
