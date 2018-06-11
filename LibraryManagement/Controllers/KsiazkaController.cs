@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibraryManagement.Models;
+using PagedList;
 
 namespace LibraryManagement.Controllers
 {
@@ -17,13 +18,31 @@ namespace LibraryManagement.Controllers
         // GET: Ksiazka
         [HttpGet]
         [AllowAnonymous]
-        public ViewResult Index(string sortOrder, string searchString)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //var ksiazka = db.Ksiazka.Include(k => k.Autor).Include(k => k.Slowo_Kluczowe).Include(k => k.Wydawca);
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.TytulSortParm = String.IsNullOrEmpty(sortOrder) ? "tytul_desc" : "";
             ViewBag.DostepneSortParm = sortOrder == "Dostepne" ?  "dostepne_desc" : "Dostepne";
+
+            if(searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
             var ksiazka = from s in db.Ksiazka
                         select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ksiazka = ksiazka.Where(s => s.Tytul.Contains(searchString));
+            }
+
             switch (sortOrder)
             {
                 case "tytul_desc":
@@ -40,12 +59,11 @@ namespace LibraryManagement.Controllers
                     ksiazka = ksiazka.OrderBy(s => s.Tytul);
                     break;
             }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(ksiazka.ToPagedList(pageNumber, pageSize));
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                ksiazka = ksiazka.Where(s => s.Tytul.Contains(searchString));
-            }
-            return View(ksiazka.ToList());
+
         }
 
         // GET: Ksiazka/Details/5
