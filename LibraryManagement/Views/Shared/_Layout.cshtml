@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Biblioteka</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -28,12 +28,16 @@
                         string loggedin = HttpContext.Current.User.Identity.Name;
                         if (!string.IsNullOrEmpty(loggedin))
                         {
+                            <li> @Html.ActionLink("Koszyk", "Index", "Koszyk") </li>
+
                             <li> @Html.ActionLink("Zarządzaj", "Dashboard", "Konta") </li>
-                        } else
-                             {
-                        <li> @Html.ActionLink("Zaloguj się", "Login", "Konta") </li>
-                             }
+
                         }
+                        else
+                        {
+                            <li> @Html.ActionLink("Zaloguj się", "Login", "Konta") </li>
+                        }
+                    }
 
                 </ul>
             </div>
