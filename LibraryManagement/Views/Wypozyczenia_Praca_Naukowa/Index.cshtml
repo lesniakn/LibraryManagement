@@ -21,39 +21,43 @@
             @Html.DisplayName("Tytuł")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stan1.Opis)
+            @Html.DisplayName("Stan")
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data_Wypozyczenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data_Zwrotu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
-                @Html.DisplayFor(modelItem => item.Czytelnik.Nazwisko)
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_Wypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_Zwrotu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+            @Html.DisplayFor(modelItem => item.Czytelnik.Nazwisko)
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Praca_Naukowa.Tytul)
-            </td>
-            @if (Session["UserID"] != null && Session["UserRole"] != null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Praca_Naukowa.Tytul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stan1.Opis)
+
+        </td>
+        @if (Session["UserID"] != null && Session["UserRole"] != null)
+        {
+            if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
             {
-                if (Int32.Parse(Session["UserRole"].ToString()) >= 1)
-                {
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
-                    </td>
-                }
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
+                </td>
             }
-        </tr>
+        }
+    </tr>
     }
 </table>
 
